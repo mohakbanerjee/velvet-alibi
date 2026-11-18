@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Velvet Alibi
 
-## Getting Started
+You solve the murder. Kane solves the bugs.
 
-First, run the development server:
+Port Halcyon, 1947. Victor Hale is dead at his desk in The Velvet Lantern, and you have until dawn to name the killer. Search four rooms, log the clues in your notebook, and make one accusation.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Play it
+
+Live site: https://YOUR-APP.vercel.app
+
+To play on your own machine:
+
+```
+npm install && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How it was built
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Cursor (agent mode) wrote the code from one spec. Kane CLI by TestMu AI verified it in a real Chrome.
 
-## Learn More
+## The loop
 
-To learn more about Next.js, take a look at the following resources:
+1. Cursor edits `src/`.
+2. The afterFileEdit hook marks the change.
+3. The stop hook runs Kane on the smoke flows.
+4. A failure is written to `.kane/FAILURES.md` and sent back to Cursor as its next message.
+5. Cursor fixes the code and the hook runs Kane again until green.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For edits you make by hand, run `npm run kane:watch`. It watches `src/` and runs the smoke flows after each save.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What Kane checks
 
-## Deploy on Vercel
+| Flow | What it proves |
+|---|---|
+| `happy_path_win_test` | Finding the three key clues and accusing Rosa Vance ends with "Case Solved". |
+| `notebook_persists_test` | Logged clues stay in the notebook when you change rooms and reload. |
+| `accuse_locked_test` | "Make an Accusation" stays disabled until three clues are found. |
+| `wrong_accusation_lose_test` | Accusing Eddie Crane ends with "Wrong Suspect". |
+| `restart_test` | "Play Again" returns to the title screen with an empty notebook. |
+| `mobile_layout_test` | Below 900px the notebook sits behind a button and rooms move to a bottom bar. |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Run the Kane checks yourself
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+You need Node 18 or newer, Google Chrome, and a free TestMu AI account.
+
+```
+npm install -g @testmuai/kane-cli
+kane-cli login
+npm install
+npm run dev
+npm run kane:check
+```
+
+To check the live site instead of localhost:
+
+```
+npm run kane:check -- --url=https://YOUR-APP.vercel.app
+```
+
+## Proof
+
+* Run history: [kane/RUN_LOG.md](kane/RUN_LOG.md)
+* Bugs Kane caught: [kane/CAUGHT.md](kane/CAUGHT.md)
+* Per step reports: `kane/flows/output-*/Result.md`
+
+## Honesty note
+
+The demo video plants one bug on purpose with `npm run demo:plant-bug` (the notebook forgets clues when you change rooms) so you can watch Kane catch it and Cursor fix it. Real catches from the build are listed in `kane/CAUGHT.md`.
+
+## Stack
+
+Next.js, TypeScript, Tailwind, Vercel, Cursor, Kane CLI.
+
+## Team
+
+Built by Mohak
