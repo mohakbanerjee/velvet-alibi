@@ -1,0 +1,18 @@
+{
+  "commit_id": "e6367556-e22e-4fd9-afa2-aca1c8c15336",
+  "test_id": "73764a28-f4de-4e32-a599-caa69e940940",
+  "testcase_id": "01M7R8AKKW7FH7XN6BBA92QNTZ",
+  "project_id": "01M7R54K933Y2RKNH1E322RVMV",
+  "folder_id": "01M7R54VJF2Z9AZ9656F123K65",
+  "org_id": "3437159",
+  "session_name": "restart",
+  "executions": [
+    {
+      "execution_id": "5a447d23-44b5-47ca-a743-e3758b960537",
+      "run_kind": "author",
+      "status": "passed",
+      "valid": true,
+      "at": "2026-11-18T22:20:33.390Z"
+    }
+  ]
+}

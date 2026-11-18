@@ -30,7 +30,10 @@ export function Game() {
     const saved = loadSave();
     if (saved) dispatch({ type: "HYDRATE", state: saved });
     setReady(true);
-  }, [router]);
+    // router.replace is only used for ?fresh=1. Do not re-run when the router identity changes,
+    // or a later navigation would reload the save over the game in progress.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Save on every change, but only after the load above has finished.
   useEffect(() => {

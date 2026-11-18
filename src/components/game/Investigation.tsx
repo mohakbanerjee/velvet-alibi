@@ -26,6 +26,8 @@ export function Investigation({ state, dispatch }: Props) {
   const scene = <RoomScene state={state} onOpenClue={openClue} />;
   const accuse = <AccuseBlock state={state} dispatch={dispatch} />;
 
+  if (wide === null) return null;
+
   return (
     <>
       {wide ? (
@@ -93,7 +95,9 @@ function RoomButtons({
         const tone = active
           ? "border-brass bg-brass/10 text-brass"
           : "border-steel text-smoke hover:border-smoke hover:text-ash";
-        const size = compact ? "min-h-11 px-1 text-center text-xs" : "px-4 py-3 text-left text-base";
+        const size = compact
+          ? "min-h-11 min-w-0 whitespace-normal px-1 text-center text-xs leading-tight"
+          : "px-4 py-3 text-left text-base";
         return (
           <button
             key={room.id}
