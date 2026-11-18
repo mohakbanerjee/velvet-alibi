@@ -1,0 +1,31 @@
+---
+description: Kane CLI verification loop for Velvet Alibi. Read Kane failures and fix the app.
+alwaysApply: true
+---
+
+# Kane CLI is the referee for this repo
+
+* Kane CLI (`kane-cli`, by TestMu AI) runs the plain English flows in `kane/flows/*_test.md` in a real Chrome and returns pass or fail.
+* Results always land in `.kane/FAILURES.md` (human summary), `.kane/last-run.json` (machine summary) and `kane/flows/output-<flow>/Result.md` (per step report).
+* A stop hook (`.cursor/hooks/kane-on-stop.mjs`) runs Kane after any turn where you edited `src/`, when `.kane/hook-on` exists. If Kane fails it sends you a follow up message.
+
+## When Kane fails
+
+1. Read `.kane/FAILURES.md` first, then the `Result.md` it points to. Quote the failing step and Kane's remark.
+2. Find the root cause in the app code under `src/`. Explain it in one sentence.
+3. Fix the app. Make the smallest correct change.
+4. Never edit `kane/flows/*_test.md` or `kane/flows/output-*` to make a failure go away. Only change a flow if its wording is truly wrong (for example it names a button text the spec never had), and then say clearly that you changed the test and why.
+5. Never remove a `data-testid`, never rename visible button text listed in the spec, never weaken game rules to pass a check.
+6. Stop after the fix. The hook re-runs Kane. If you need to run it yourself: `npm run kane:smoke` (smoke flows) or `npm run kane:check` (all flows). Give the shell call a long timeout (10 minutes). The dev server must be running on http://localhost:3000.
+7. If the same flow fails 3 times in a row on the same step, stop and report to Mohak instead of looping.
+
+## When Kane did not start (exit code 2)
+
+That is not an app bug. Do not change code. Tell Mohak the fix: start `npm run dev`, run `kane-cli login` in his own terminal, check `kane-cli balance`, or install Chrome.
+
+## Kane CLI facts (from the official docs, do not invent flags)
+
+* Always pass `--agent` to `kane-cli run` and `kane-cli testmd run`. Prefix commands with `KANE_CLI_USER_AGENT=cursor` on Mac or Linux.
+* Exit codes: 0 passed, 1 failed, 2 did not start, 3 timeout or cancelled.
+* If you are unsure about a flag, run `kane-cli --help` or `kane-cli <command> --help`. Never guess.
+* Never ask Mohak for his access key in chat and never print it.

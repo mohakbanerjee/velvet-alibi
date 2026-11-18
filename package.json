@@ -6,7 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "kane:check": "node scripts/kane-check.mjs",
+    "kane:smoke": "node scripts/kane-check.mjs --tag=smoke",
+    "kane:watch": "node scripts/kane-watch.mjs",
+    "kane:suite": "kane-cli testrun run --match flows --headless --agent",
+    "kane:hook:on": "node scripts/kane-hook.mjs on",
+    "kane:hook:all": "node scripts/kane-hook.mjs all",
+    "kane:hook:off": "node scripts/kane-hook.mjs off",
+    "kane:hook:headed": "node scripts/kane-hook.mjs headed",
+    "kane:hook:headless": "node scripts/kane-hook.mjs headless",
+    "demo:plant-bug": "node scripts/demo-bug.mjs plant",
+    "demo:unplant-bug": "node scripts/demo-bug.mjs unplant",
+    "demo:bug-status": "node scripts/demo-bug.mjs status"
   },
   "dependencies": {
     "next": "16.4.6",

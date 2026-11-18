@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      { "command": "node .cursor/hooks/mark-dirty.mjs", "timeout": 10 }
+    ],
+    "stop": [
+      { "command": "node .cursor/hooks/kane-on-stop.mjs", "timeout": 900, "loop_limit": 3 }
+    ]
+  }
+}
