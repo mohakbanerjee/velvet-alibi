@@ -31,7 +31,7 @@ export default function AboutPage() {
 
       <p className="text-sm">
         <a
-          href="https://github.com/YOUR_GITHUB/velvet-alibi"
+          href="https://github.com/mohakbanerjee/velvet-alibi"
           className="text-brass underline underline-offset-4 hover:text-ash"
         >
           Source on GitHub

@@ -6,7 +6,7 @@ Port Halcyon, 1947. Victor Hale is dead at his desk in The Velvet Lantern, and y
 
 ## Play it
 
-Live site: https://YOUR-APP.vercel.app
+Live site: https://velvet-alibi.vercel.app
 
 To play on your own machine:
 
@@ -56,7 +56,7 @@ npm run kane:check
 To check the live site instead of localhost:
 
 ```
-npm run kane:check -- --url=https://YOUR-APP.vercel.app
+npm run kane:check -- --url=https://velvet-alibi.vercel.app
 ```
 
 ## Proof
